@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "GROUPS")
@@ -19,10 +21,10 @@ public class Group {
     @ManyToOne(optional = false)
     @JoinColumn(name = "admin_id")
     private User admin;
-    @OneToMany
+    @ManyToMany
     @JoinTable(
             name = "GROUPS_USERS",
             joinColumns = {@JoinColumn(name = "group_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private Collection<User> users;
+    private List<User> users = new ArrayList<>();
 }
