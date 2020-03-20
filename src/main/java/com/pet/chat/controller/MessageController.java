@@ -24,8 +24,6 @@ public class MessageController {
         return messageRepository.getMessages(id);
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.OK)
     @MessageMapping("/group/{id}/message")
     @SendTo("/topic/group/{id}")
     public Message addMessage(@DestinationVariable Long id, MessageParameters params) {
@@ -34,7 +32,7 @@ public class MessageController {
 
     @Data
     @NoArgsConstructor
-    public static class MessageParameters {
+    private static class MessageParameters {
         long user_id;
         String text;
     }

@@ -8,11 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Repository
+@Transactional
 public class UserRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
     public void create(String username, String password) {
         User user = new User();
         user.setUsername(username);

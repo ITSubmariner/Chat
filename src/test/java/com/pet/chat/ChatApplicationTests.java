@@ -33,7 +33,6 @@ class ChatApplicationTests {
         mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON).content("{\"username\":\"admin\", \"password\": \"password\"}")).andExpect(status().isOk());
         mockMvc.perform(post("/group").contentType(MediaType.APPLICATION_JSON).content("{\"name\": \"primary\", \"admin_id\": 1}")).andExpect(status().isOk());
         mockMvc.perform(get("/group")).andExpect(status().isOk());
-//        mockMvc.perform(post("/group/1/message").contentType(MediaType.APPLICATION_JSON).content("{\"user_id\": 1, \"text\": \"Hello all\"}")).andExpect(status().isOk());
         mockMvc.perform(get("/group/1/message")).andExpect(status().isOk());
     }
 

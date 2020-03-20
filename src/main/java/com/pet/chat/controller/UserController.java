@@ -1,8 +1,7 @@
 package com.pet.chat.controller;
 
+import com.pet.chat.domain.requestParams.UserParameters;
 import com.pet.chat.repository.UserRepository;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +15,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public void add(@RequestBody UserParameters params) {
-        userRepository.create(params.username, params.password);
-    }
-
-    @Data
-    @NoArgsConstructor
-    public static class UserParameters {
-        String username;
-        String password;
+        userRepository.create(params.getUsername(), params.getPassword());
     }
 
 }

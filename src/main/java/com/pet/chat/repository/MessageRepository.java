@@ -11,11 +11,11 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@Transactional
 public class MessageRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
     public List<Message> getMessages(long group_id) {
         Group group = entityManager.find(Group.class, group_id);
         return entityManager
@@ -24,7 +24,6 @@ public class MessageRepository {
                 .getResultList();
     }
 
-    @Transactional
     public Message add(long group_id, long user_id, String text) {
         Message message = new Message();
         Group group = entityManager.find(Group.class, group_id);

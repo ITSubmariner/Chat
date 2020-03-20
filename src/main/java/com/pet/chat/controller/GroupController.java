@@ -1,6 +1,9 @@
 package com.pet.chat.controller;
 
 import com.pet.chat.domain.Group;
+import com.pet.chat.domain.requestParams.GroupParameters;
+import com.pet.chat.domain.requestParams.RemoveGroupParameters;
+import com.pet.chat.domain.requestParams.UserParameters;
 import com.pet.chat.repository.GroupRepository;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,26 +25,32 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public Group getGroup(long id) {
+    public Group getGroup(@PathVariable Long id) {
         return groupRepository.find(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public void createGroup(@RequestBody GroupParameters params) {
-        groupRepository.create(params.name, params.admin_id);
+        groupRepository.create(params.getName(), params.getAdminId());
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public void removeGroup(@RequestParam long id) {
-        groupRepository.remove(id);
+    public void removeGroup(@RequestParam RemoveGroupParameters params) {
+        groupRepository.remove(params.getGroupId(), params.getUserId());
     }
 
-    @Data
-    @NoArgsConstructor
-    public static class GroupParameters {
-        private String name;
-        private long admin_id;
+    @PostMapping("/{id}/user")
+    @ResponseStatus(HttpStatus.OK)
+    public void addUser(@PathVariable Long id, @RequestBody Long userId) {
+        groupRepository.addUser(id, userId);
     }
+
+    @DeleteMapping("/{id}/user")
+    @ResponseStatus(HttpStatus.OK)
+    public void removeUser(@PathVariable Long id, @RequestBody Long userId) {
+        groupRepository.removeUser(id, userId);
+    }
+
 }
